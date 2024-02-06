@@ -1,10 +1,13 @@
 package com.api.loginApi.model.users;
 
+import com.api.loginApi.model.address.Address;
+import com.api.loginApi.model.users.dto.UsersDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Entity(name="Users")
 @Table(name="users")
@@ -21,7 +24,24 @@ public class Users {
     private String name;
     private String email;
     private String password;
+    private String username;
+
+    @Embedded
+    private Address address;
+
+    public Users (UsersDTO data) {
+        this.name = data.name();
+        this.email = data.email();
+        this.username = data.username();
+        this.password = hashPassword(data.password());
+        this.address = new Address(data.address());
+    }
 
 
+    private String hashPassword(String password) {
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        String hash = encoder.encode(password);
+        return hash;
+    }
 
 }
