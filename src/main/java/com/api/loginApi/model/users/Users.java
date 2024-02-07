@@ -26,6 +26,7 @@ public class Users {
     private String email;
     private String password;
     private String username;
+    private boolean active;
 
     @Embedded
     private Address address;
@@ -36,6 +37,7 @@ public class Users {
         this.username = data.username();
         this.password = hashPassword(data.password());
         this.address = new Address(data.address());
+        this.active = true;
     }
 
 
@@ -58,5 +60,9 @@ public class Users {
         if (data.username() != null) {
             this.username = data.username();
         }
+    }
+
+    public void inactive() {
+        this.active = false;
     }
 }

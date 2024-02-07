@@ -21,7 +21,7 @@ public class UserController {
 
     @GetMapping
     public List<UserDTO> get() {
-        return repository.findAll().stream().map(UserDTO::new).toList();
+        return repository.findAllByActiveTrue().stream().map(UserDTO::new).toList();
     }
 
     @PostMapping
@@ -36,6 +36,13 @@ public class UserController {
     public void update (@RequestBody @Valid UpdateUserDTO data) {
         var user = repository.getReferenceById(data.id());
         user.updateData(data);
+    }
+
+    @DeleteMapping("/{id}")
+    @Transactional
+    public void delete(@PathVariable("id") Long id) {
+        var user = repository.getReferenceById(id);
+        user.inactive();
     }
 
 }
