@@ -2,6 +2,7 @@ package com.api.loginApi.controller;
 
 import com.api.loginApi.model.users.Users;
 import com.api.loginApi.model.users.UsersRepository;
+import com.api.loginApi.model.users.dto.UpdateUserDTO;
 import com.api.loginApi.model.users.dto.UserDTO;
 import com.api.loginApi.model.users.dto.UsersDTO;
 import jakarta.validation.Valid;
@@ -28,6 +29,13 @@ public class UserController {
     public void create(@RequestBody @Valid UsersDTO data) {
         var user = new Users(data);
         repository.save(user);
+    }
+
+    @PutMapping
+    @Transactional
+    public void update (@RequestBody @Valid UpdateUserDTO data) {
+        var user = repository.getReferenceById(data.id());
+        user.updateData(data);
     }
 
 }

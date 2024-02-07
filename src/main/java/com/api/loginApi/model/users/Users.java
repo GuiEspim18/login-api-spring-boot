@@ -1,6 +1,7 @@
 package com.api.loginApi.model.users;
 
 import com.api.loginApi.model.address.Address;
+import com.api.loginApi.model.users.dto.UpdateUserDTO;
 import com.api.loginApi.model.users.dto.UsersDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -44,4 +45,18 @@ public class Users {
         return hash;
     }
 
+    public void updateData(UpdateUserDTO data) {
+        if (data.address() != null) {
+            this.address.updateData(data.address());
+        }
+        if (data.name() != null) {
+            this.name = data.name();
+        }
+        if (data.email() != null) {
+            this.email = data.email();
+        }
+        if (data.username() != null) {
+            this.username = data.username();
+        }
+    }
 }

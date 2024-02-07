@@ -30,4 +30,27 @@ public class Address {
         this.uf = data.uf();
     }
 
+    public void updateData(AddressDTO address) {
+        if (address.neighborhood() != null) {
+            this.neighborhood = address.neighborhood();
+        }
+        if (address.city() != null) {
+            this.city = address.city();
+        }
+        if (address.uf() != null) {
+            this.uf = address.uf();
+        }
+        if (address.number() != null) {
+            this.number = address.number();
+        }
+        if (address.compliment() != null) {
+            this.compliment = address.compliment();
+        }
+        if (address.street() != null) {
+            this.street = address.street();
+        }
+        if (address.zipcode() != null) {
+            this.zipcode = address.zipcode();
+        }
+    }
 }
