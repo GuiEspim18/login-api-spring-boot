@@ -1,5 +1,6 @@
 package com.api.loginApi.infra.exceptions;
 
+import com.api.loginApi.infra.exceptions.dto.ErrorsValidationDTO;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -21,15 +22,6 @@ public class HandingExceptions {
     public ResponseEntity<?> error400(MethodArgumentNotValidException e) {
         List<FieldError> errors = e.getFieldErrors();
         return ResponseEntity.badRequest().body(errors.stream().map(ErrorsValidationDTO::new).toList());
-    }
-
-    private record ErrorsValidationDTO (
-            String field,
-            String message
-    ) {
-        public ErrorsValidationDTO(FieldError field) {
-            this(field.getField(), field.getDefaultMessage());
-        }
     }
 
 }
